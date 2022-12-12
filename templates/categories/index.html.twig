@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des chatons BDD{% endblock %}
+
+{% block body %}
+
+    <div class="exemple-wrapper">
+        <h1>Gestion des chatons en BDD</h1>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            {% for c in categories %}
+                <tr>
+                    <td>{{ c.titre }}</td>
+                    <td>{{ c.description }}</td>
+                    <td><a href="{{ path("chaton_ajouter",{"idCategorie":c.id}) }}" class="btn btn-primary">ajouter chaton</a></td>
+                    <td><a href="{{ path("categorie_modifier",{"id":c.id}) }}" class="btn btn-primary">modifier</a></td>
+                    <td><a href="{{ path("categorie_supprimer",{"id":c.id}) }}" class="btn btn-danger">supprimer</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Ajouter une catégorie</h2>
+        {{ form(formulaire) }}
+    </div>
+{% endblock %}

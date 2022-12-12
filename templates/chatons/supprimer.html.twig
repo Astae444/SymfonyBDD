@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des chatons BDD{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>Êtes-vous sûr de vouloir supprimer la catégorie <i>{{ chaton.titre }}</i></h1>
+        {{ form(formulaire) }}
+        <a href="{{ path("app_home") }}" class="btn btn warning">Annuler</a>
+    </div>
+{% endblock %}
