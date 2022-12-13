@@ -106,7 +106,7 @@ class CategoriesController extends AbstractController
     {
         //créer le formulaire sur le même principe que dans ajouter
         //mais avec une catégorie existante
-        $categorie = $doctrine->getRepository(Cateforie::class)->find($id); // select * from catégoire where id = ...
+        $categorie = $doctrine->getRepository(Categorie::class)->find($id); // select * from catégoire where id = ...
 
         //si l'id n'existe pas :
         if (!$categorie){

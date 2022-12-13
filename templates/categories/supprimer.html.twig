@@ -5,6 +5,7 @@
 {% block body %}
     <div class="container">
         <h1>Supprimer la catégorie <i>{{ categorie.titre }}</i></h1>
+        <p>Tous les chatons de cette catégorie seront supprimés</p>
         {{ form(formulaire) }}
         {# je vais mettre le bouton retour #}
         <a href="{{ path("app_categories") }}" class="btn btn-primary">Retour</a>
