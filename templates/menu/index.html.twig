@@ -1,0 +1,5 @@
+{% for c in categories %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path("app_chatons", {"id":c.id}) }}">{{ c.titre }}</a>
+    </li>
+{% endfor %}

@@ -1,32 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des chatons BDD{% endblock %}
+{% block title %}Menu de gestion{% endblock %}
 
 {% block body %}
-
-    <div class="exemple-wrapper">
-        <h1>Gestion des chatons en BDD</h1>
-
+    <div class="container">
+        <h1>Gestion des chatons en Bdd</h1>
         <table class="table table-striped">
             <tr>
                 <th>Titre</th>
-                <th>Description</th>
-                <th></th>
-                <th></th>
+                <th>Descriptions</th>
                 <th></th>
             </tr>
             {% for c in categories %}
                 <tr>
                     <td>{{ c.titre }}</td>
                     <td>{{ c.description }}</td>
-                    <td><a href="{{ path("chaton_ajouter",{"idCategorie":c.id}) }}" class="btn btn-primary">ajouter chaton</a></td>
-                    <td><a href="{{ path("categorie_modifier",{"id":c.id}) }}" class="btn btn-primary">modifier</a></td>
-                    <td><a href="{{ path("categorie_supprimer",{"id":c.id}) }}" class="btn btn-danger">supprimer</a></td>
+
+                    <td>
+                        <a class="btn btn-secondary" href="{{ path("app_categories_modifier", {"id":c.id}) }}">Modifier</a>
+                        <a class="btn btn-danger" href="{{ path("app_categories_supprimer", {"id":c.id}) }}">Supprimer</a>
+                        <a class="btn btn-primary" href="{{ path("app_chatons", {"id":c.id}) }}">Voir les chatons</a>
+                    </td>
                 </tr>
             {% endfor %}
         </table>
-
-        <h2>Ajouter une catégorie</h2>
-        {{ form(formulaire) }}
+        <a href="{{ path("app_categories_ajouter") }}" class="btn btn-success">Ajouter une categorie</a>
+        <a href="{{ path("app_chaton_ajouter") }}" class="btn btn-success">Ajouter un chaton</a>
+        <a href="{{ path('app_proprietaire_ajouter') }}" class="btn btn-success">Ajouter un propriétaire</a>
+        <a href="{{ path('app_proprietaire_voir') }}" class="btn btn-success">Voir les propriétaires</a>
     </div>
 {% endblock %}

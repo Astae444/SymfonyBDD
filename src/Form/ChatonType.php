@@ -4,10 +4,13 @@ namespace App\Form;
 
 use App\Entity\Categorie;
 use App\Entity\Chaton;
+use App\Entity\Proprietaire;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Symfony\Component\Translation\t;
 
 class ChatonType extends AbstractType
 {
@@ -15,15 +18,22 @@ class ChatonType extends AbstractType
     {
         $builder
             ->add('Nom')
-            ->add('Sterilise')
+            ->add('Sterelise')
             ->add('Photo')
             ->add('Categorie', EntityType::class, [
-                'class'=>Categorie::class, //choix de la classe liée
-                'choice_label'=>"titre", //choix de ce qui sera affiché comme texte
+                'class'=>Categorie::class,
+                'choice_label'=>"titre",
                 'multiple'=>false,
                 'expanded'=>false
             ])
-            ->add('OK', SubmitType::class, ["label"=>"OK"])
+            ->add('proprietaire_id', EntityType::class, [
+                'class'=>Proprietaire::class,
+                'choice_label'=>"prenom",
+                'label'=> "Propriétaire",
+                'multiple'=>true,
+                'expanded'=>true
+            ])
+            ->add('ok', SubmitType::class,['label'=>"Ok"])
         ;
     }
 
@@ -33,4 +43,5 @@ class ChatonType extends AbstractType
             'data_class' => Chaton::class,
         ]);
     }
+
 }

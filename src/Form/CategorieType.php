@@ -15,7 +15,7 @@ class CategorieType extends AbstractType
         $builder
             ->add('Titre')
             ->add('Description')
-            ->add('OK', SubmitType::class, ["label"=>"OK"])
+            ->add("ok", SubmitType::class, ["label"=>"OK"])
         ;
     }
 

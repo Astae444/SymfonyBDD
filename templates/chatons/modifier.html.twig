@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier une catégorie{% endblock %}
+{% block title %}Modifier un chaton{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>Modifier la catégorie <i>{{ categorie.titre }}</i></h1>
+        <h1>Modifier le chaton <i>{{ chaton.nom }}</i></h1>
         {{ form(formulaire) }}
     </div>
 {% endblock %}

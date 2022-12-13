@@ -12,7 +12,7 @@ class MenuController extends AbstractController
 {
     public function _menu(ManagerRegistry $doctrine): Response
     {
-        return $this->render('menu/_menu.html.twig', [
+        return $this->render('menu/index.html.twig', [
             'categories'=>$doctrine->getRepository(Categorie::class)->findAll()
         ]);
     }

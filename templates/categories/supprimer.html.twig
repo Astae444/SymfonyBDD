@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des chatons BDD{% endblock %}
+{% block title %}Supprimer une catégorie{% endblock %}
 
 {% block body %}
-    <div class="example-wrapper">
-        <h1>Êtes-vous sûr de vouloir supprimer la catégorie <i>{{ categorie.titre }}</i></h1>
+    <div class="container">
+        <h1>Supprimer la catégorie <i>{{ categorie.titre }}</i></h1>
         {{ form(formulaire) }}
-        <a href="{{ path("app_home") }}" class="btn btn warning">Annuler</a>
+        {# je vais mettre le bouton retour #}
+        <a href="{{ path("app_categories") }}" class="btn btn-primary">Retour</a>
     </div>
 {% endblock %}
