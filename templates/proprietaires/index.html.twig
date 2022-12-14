@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voir les Propriétaires{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-5">Gestion des propriétaires</h1>
+        <table class="table table-striped">
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th></th>
+            </tr>
+            {% for p in proprietaires %}
+                <tr>
+                    <td>{{ p.prenom }}</td>
+                    <td>{{ p.nom }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path("app_proprietaire", {"id":p.id}) }}">Voir le(s) chaton(s)</a>
+                        <a class="btn btn-danger" href="{{ path("app_proprietaire_supprimer", {"id":p.id}) }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
