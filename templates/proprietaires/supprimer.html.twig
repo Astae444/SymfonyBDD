@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>Supprimer le propriétaire <i>{{ proprietaire.nom }}</i></h1>
+        <h1>Supprimer le propriétaire <i>{{ proprietaire.prenom }} {{ proprietaire.nom }}</i></h1>
         <p>Les chatons associés à ce propriétaires ne seront pas supprimées</p>
         {{ form(formulaire) }}
         {# je vais mettre le bouton retour #}

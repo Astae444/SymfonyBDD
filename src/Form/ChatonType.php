@@ -18,22 +18,22 @@ class ChatonType extends AbstractType
     {
         $builder
             ->add('Nom')
-            ->add('Sterelise')
+            ->add('Sterilise')
             ->add('Photo')
             ->add('Categorie', EntityType::class, [
-                'class'=>Categorie::class,
-                'choice_label'=>"titre",
+                'class'=>Categorie::class, //choix de la classe liée
+                'choice_label'=>"titre", //choix de ce qui sera affihé comme texte
                 'multiple'=>false,
                 'expanded'=>false
             ])
             ->add('proprietaire_id', EntityType::class, [
                 'class'=>Proprietaire::class,
                 'choice_label'=>"prenom",
-                'label'=> "Propriétaire",
+                'label'=> "Propriétaire(s) :",
                 'multiple'=>true,
                 'expanded'=>true
             ])
-            ->add('ok', SubmitType::class,['label'=>"Ok"])
+            ->add('OK', SubmitType::class, ["label"=>"OK"])
         ;
     }
 
@@ -43,5 +43,4 @@ class ChatonType extends AbstractType
             'data_class' => Chaton::class,
         ]);
     }
-
 }

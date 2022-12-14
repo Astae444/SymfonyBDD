@@ -9,7 +9,7 @@
     </style>
     <div class="container">
         {% if categorie.titre is defined %}
-            <h1>Affichage des chatons de la catégorie "{{ categorie.titre }}"</h1>
+            <h1 class="mt-5">Affichage des chatons de la catégorie "{{ categorie.titre }}"</h1>
         {% endif %}
         {% if proprietaire.nom is defined %}
             <h1>Affichage des chatons du propriétaire {{ proprietaire.nom }}</h1>
@@ -28,6 +28,6 @@
                 </div>
             {% endfor %}
         </div>
-        <a href="{{ path("app_chaton_ajouter") }}" class="mt-5 btn btn-primary">Ajouter un chaton</a>
+        <a href="{{ path("app_chaton_ajouter") }}" class="mt-5 btn btn-success  ">Ajouter un chaton</a>
     </div>
 {% endblock %}

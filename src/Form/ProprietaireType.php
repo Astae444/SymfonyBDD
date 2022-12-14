@@ -13,9 +13,9 @@ class ProprietaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options):void
     {
         $builder
-            ->add('Nom')
             ->add('Prenom')
-            ->add('ok',SubmitType::class, ['label'=>"Ok"]);
+            ->add('Nom')
+            ->add('ok',SubmitType::class, ['label'=>"Confirmer"]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
