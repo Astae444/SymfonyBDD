@@ -42,28 +42,23 @@ class ChatonsController extends AbstractController
      */
     public function modifier($id, ManagerRegistry $doctrine, Request $request): Response
     {
-        //créer le formulaire sur le même principe que dans ajouter
-        //mais avec une catégorie existante
-        $chaton = $doctrine->getRepository(Chaton::class)->find($id); // select * from catégoire where id = ...
-
-        //si l'id n'existe pas :
+        //créer le formulaire en récupèrant une catégorie existante
+        $chaton = $doctrine->getRepository(Chaton::class)->find($id); // select * from catégorie where id = ...
+        //si l'id n'est pas trouvé :
         if (!$chaton) {
             throw $this->createNotFoundException("Pas de chaton avec l'id $id");
         }
-
-        //si l'id existe :
+        //A partir de ça on créer le formulaire
         $form = $this->createForm(ChatonType::class, $chaton);
-
         //On gère le retour du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //l'objet catégorie est rempli
-            //Donc on dit a doctrine de le save dans la Bdd (on utilise un entity manager)
+            //le formulaire de création de catégorie est valide donc on utilise doctrine pour l'insérer dans la bdd
             $em = $doctrine->getManager();
-            //et on dit à l'entity manager de mettre la catégorie en question dans la table
+            //On indique à l'entity manager d'envoyer la catégorie sélectionnée dans la table
             $em->persist(($chaton));
 
-            //on génère l'appel SQL (ici un update)
+            //on génère l'UPDATE pour le SQL
             $em->flush();
 
             return $this->redirectToRoute("app_categories");
@@ -80,22 +75,19 @@ class ChatonsController extends AbstractController
      */
     public function ajouter(ManagerRegistry $doctrine, Request $request): Response
     {
-        //Création du formulaire avant de le passer à la vue
-        //Mais avant il faut créer une catégorie vide
+        //Création d'un objet Catégorie vide pour le formulaire avant de le passer générer la vue
         $chaton= new Chaton();
-        //A partir de ça je crée le formulaire
+        //A partir de ça on créer le formulaire
         $form=$this->createForm(ChatonType::class, $chaton);
 
         //On gère le retour du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            //l'objet catégorie est rempli
-            //Donc on dit a doctrine de le save dans la Bdd (on utilise un entity manager)
+            //le formulaire de création de catégorie est valide donc on utilise doctrine pour l'insérer dans la bdd
             $em=$doctrine->getManager();
-            //et on dit à l'entity manager de mettre la catégorie en question dans la table
+            //On indique à l'entity manager d'envoyer la catégorie sélectionnée dans la table
             $em->persist(($chaton));
-
-            //on génère l'appel SQL (ici un insert)
+            //on génère l'INSERT pour le SQL
             $em->flush();
 
             return $this->redirectToRoute("app_categories");
@@ -111,28 +103,23 @@ class ChatonsController extends AbstractController
      */
     public function supprimer($id, ManagerRegistry $doctrine, Request $request): Response
     {
-        //créer le formulaire sur le même principe que dans ajouter
-        //mais avec une catégorie existante
-        $chaton = $doctrine->getRepository(Chaton::class)->find($id); // select * from catégoire where id = ...
-
+        //créer le formulaire sur le même principe que dans ajouter mais avec une catégorie existante
+        $chaton = $doctrine->getRepository(Chaton::class)->find($id); // select * from catégorie where id = ...
         //si l'id n'existe pas :
         if (!$chaton){
             throw $this->createNotFoundException("Pas de catégories avec l'id $id");
         }
-
-        //si l'id existe :
+        //A partir de ça on créer le formulaire
         $form=$this->createForm(ChatonSupprimerType::class, $chaton);
 
         //On gère le retour du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            //l'objet catégorie est rempli
-            //Donc on dit a doctrine de le save dans la Bdd (on utilise un entity manager)
+            //le formulaire de création de catégorie est valide donc on utilise doctrine pour l'insérer dans la bdd
             $em=$doctrine->getManager();
-            //et on dit à l'entity manager de mettre la catégorie en question dans la table de supprimer
+            //On indique à l'entity manager d'envoyer la catégorie sélectionnée dans la table
             $em->remove(($chaton));
-
-            //on génère l'appel SQL (ici un delete)
+            //on génère le DELETE pour le SQL
             $em->flush();
 
             return $this->redirectToRoute("app_categories");

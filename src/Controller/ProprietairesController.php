@@ -35,10 +35,7 @@ class ProprietairesController extends AbstractController
      */
     public function proprietairebyid($id, ManagerRegistry $doctrine): Response
     {
-        //Aller chercher les catégories dans la base
-        //Donc on a besoins d'un repository
         $proprietaire = $doctrine->getRepository(Proprietaire::class)->find($id);
-        //si on n'a rien trouvé -> 404
         if (!$proprietaire) {
             throw $this->createNotFoundException("Aucun propriétaire avec l'id $id");
         }
@@ -54,23 +51,15 @@ class ProprietairesController extends AbstractController
      */
     public function ajouter(ManagerRegistry $doctrine, Request $request): Response
     {
-        //Création du formulaire avant de passer à la vue
-        //Mais avant, il faut créer une catégorie vide
         $proprietaire = new proprietaire();
-        //A partir de ça je crée le formulaire
         $form=$this->createForm(ProprietaireType::class, $proprietaire);
 
-        //On gère le retour du formulaire
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            //l'objet catégorie est rempli
-            //Donc on dit a doctrine de le save dans la Bdd (on utilise un entity manager)
             $em=$doctrine->getManager();
-            //et on dit à l'entity manager de mettre la catégorie en question dans la table
             $em->persist(($proprietaire));
 
-            //on génère l'appel SQL (ici un insert)
             $em->flush();
 
             return $this->redirectToRoute("app_categories");
@@ -86,28 +75,19 @@ class ProprietairesController extends AbstractController
      */
     public function supprimer($id, ManagerRegistry $doctrine, Request $request): Response
     {
-        //créer le formulaire sur le même principe que dans ajouter
-        //mais avec une catégorie existante
         $proprietaire = $doctrine->getRepository(Proprietaire::class)->find($id);
 
-        //si l'id n'existe pas :
         if (!$proprietaire){
             throw $this->createNotFoundException("Pas de propriétaire avec l'id $id");
         }
 
-        //si l'id existe :
         $form=$this->createForm(ProprietaireSupprimerType::class, $proprietaire);
 
-        //On gère le retour du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            //l'objet propriétaire est rempli
-            //Donc on dit a doctrine de le save dans la Bdd (on utilise un entity manager)
             $em=$doctrine->getManager();
-            //et on dit à l'entity manager de mettre la catégorie en question dans la table de supprimer
             $em->remove(($proprietaire));
 
-            //on génere l'appel SQL (ici un update)
             $em->flush();
 
             return $this->redirectToRoute("app_categories");

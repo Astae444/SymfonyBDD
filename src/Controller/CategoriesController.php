@@ -19,10 +19,8 @@ class CategoriesController extends AbstractController
      */
     public function index(ManagerRegistry $doctrine): Response
     {
-        //Aller chercher les catégories dans la base
-        //Donc on a besoins d'un repository
         $repo = $doctrine->getRepository(Categorie::class);
-        $categories = $repo->findAll(); //déclancher un select * qui devient une liste de catégorie
+        $categories = $repo->findAll();
 
         return $this->render('categories/index.html.twig', [
             'categories'=>$categories
@@ -34,22 +32,14 @@ class CategoriesController extends AbstractController
      */
     public function ajouter(ManagerRegistry $doctrine, Request $request): Response
     {
-        //Création du formulaire avant de le passer à la vue
-        //Mais avant il faut créer une catégorie vide
         $categorie= new Categorie();
-        //A partir de ça je crée le formulaire
         $form=$this->createForm(CategorieType::class, $categorie);
 
-        //On gère le retour du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            //l'objet catégorie est rempli
-            //Donc on dit a doctrine de le save dans la Bdd (on utilise un entity manager)
             $em=$doctrine->getManager();
-            //et on dit à l'entity manager de mettre la catégorie en question dans la table
             $em->persist(($categorie));
 
-            //on génère l'appel SQL (ici un insert)
             $em->flush();
 
             return $this->redirectToRoute("app_categories");
@@ -65,28 +55,19 @@ class CategoriesController extends AbstractController
      */
     public function modifier($id, ManagerRegistry $doctrine, Request $request): Response
     {
-        //créer le formulaire sur le même principe que dans ajouter
-        //mais avec une catégorie existante
         $categorie = $doctrine->getRepository(Categorie::class)->find($id); // select * from catégorie where id = ...
 
-        //si l'id n'existe pas :
         if (!$categorie){
             throw $this->createNotFoundException("Pas de catégories avec l'id $id");
         }
 
-        //si l'id existe :
         $form=$this->createForm(CategorieType::class, $categorie);
 
-        //On gère le retour du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            //l'objet catégorie est rempli
-            //Donc on dit a doctrine de le save dans la Bdd (on utilise un entity manager)
             $em=$doctrine->getManager();
-            //et on dit à l'entity manager de mettre la catégorie en question dans la table
             $em->persist(($categorie));
 
-            //on génère l'appel SQL (ici un update)
             $em->flush();
 
             return $this->redirectToRoute("app_categories");
@@ -104,28 +85,19 @@ class CategoriesController extends AbstractController
      */
     public function supprimer($id, ManagerRegistry $doctrine, Request $request): Response
     {
-        //créer le formulaire sur le même principe que dans ajouter
-        //mais avec une catégorie existante
         $categorie = $doctrine->getRepository(Categorie::class)->find($id); // select * from catégoire where id = ...
 
-        //si l'id n'existe pas :
         if (!$categorie){
             throw $this->createNotFoundException("Pas de catégories avec l'id $id");
         }
 
-        //si l'id existe :
         $form=$this->createForm(CategorieSupprimerType::class, $categorie);
 
-        //On gère le retour du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            //l'objet catégorie est rempli
-            //Donc on dit a doctrine de le save dans la Bdd (on utilise un entity manager)
             $em=$doctrine->getManager();
-            //et on dit à l'entity manager de mettre la catégorie en question dans la table de supprimer
             $em->remove(($categorie));
 
-            //on génère l'appel SQL (ici un update)
             $em->flush();
 
             return $this->redirectToRoute("app_categories");

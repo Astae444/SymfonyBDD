@@ -21,8 +21,8 @@ class ChatonType extends AbstractType
             ->add('Sterilise')
             ->add('Photo')
             ->add('Categorie', EntityType::class, [
-                'class'=>Categorie::class, //choix de la classe liée
-                'choice_label'=>"titre", //choix de ce qui sera affihé comme texte
+                'class'=>Categorie::class,
+                'choice_label'=>"titre",
                 'multiple'=>false,
                 'expanded'=>false
             ])
